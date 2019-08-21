@@ -1,0 +1,14 @@
+FROM tomcat:8-jre8-alpine
+#The alpine image is a lightweight image with java (here: 8) and tomcat (here: 8)
+
+LABEL maintainer="tim@harder-it-consulting.de"
+
+USER  root
+
+#Copy to tomcat inside the container and run on port 8081 with URL localhost:8081/sample
+COPY sample.war $webapps_home/sample.war
+
+EXPOSE 8081
+
+RUN sed -i 's/port="8080"/port="8081"/' /usr/local/tomcat/conf/server.xml
+
